@@ -90,6 +90,12 @@ Phase 10: 对比分析 (Bonus)
 
 Phase 11: 行业应用 (Bonus)
     └── 手机配件店AI视频工具 → PDF报价单→短视频自动生成
+
+Phase 12: 行业知识库 (Core)
+    ├── 中国手机配件批发行业知识库 → 9年数据+四层盈利模型+客户经营
+    ├── 经营数据报告 → 2141客户+32335订单+2594产品的真实分析
+    ├── AI赋能实体店实战指南 → 5个免费AI工具+乡镇店逆袭案例
+    └── 门店运营Skill包 → 5个Hermes技能（库存/营销/订单/裁膜/总控）
 ```
 
 ## 🏗️ 项目结构
@@ -139,11 +145,17 @@ ai-agent-skills-zh/
 │   └── 技能对比分析.md
 ├── 11-行业应用/                   # Phase 11: 行业应用
 │   └── 手机配件店AI视频工具/
-│       ├── README.md              ← 完整文档
-│       ├── SKILL.md               ← Hermes技能
-│       ├── templates/             ← 2种视频模板
-│       ├── scripts/               ← PDF解析+视频生成
-│       └── examples/              ← 示例数据
+│       ├── README.md
+│       ├── SKILL.md
+│       ├── templates/
+│       ├── scripts/
+│       └── examples/
+├── 12-行业知识库/                 # Phase 12: 行业知识库（核心资产）
+│   ├── 中国手机配件批发行业知识库.md
+│   ├── 经营数据报告.md
+│   ├── AI赋能实体店实战指南.md
+│   └── 门店运营Skill包/
+│       └── README.md
 └── templates/                     # 可直接复用的模板
     ├── prd-template.md
     ├── okr-template.md
@@ -183,6 +195,7 @@ ai-agent-skills-zh/
 | 最佳实践 | 3个 | 09 |
 | 对比分析 | 1个 | 10 |
 | 行业应用 | 1个 | 11 |
+| 行业知识库 | 4个 | 12 |
 ## 🤝 开源许可
 
 本项目基于 **MIT License** 开源。你可以：
