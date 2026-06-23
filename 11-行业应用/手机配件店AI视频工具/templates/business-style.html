@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手机配件店AI视频 — 商务风格模板</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0a0a0a;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+#canvas {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0c1445 0%, #1a237e 40%, #0d47a1 100%);
+  color: white;
+}
+
+/* 顶部装饰 */
+.top-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+}
+
+.corner-accent {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 3px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+}
+.corner-accent.top-right { top: -50px; right: -50px; }
+.corner-accent.bottom-left { bottom: -80px; left: -80px; width: 300px; height: 300px; }
+
+/* 品牌标识 */
+.brand-area {
+  position: absolute;
+  top: 80px;
+  left: 60px;
+  right: 60px;
+  opacity: 0;
+}
+.brand-logo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.9);
+  border-bottom: 2px solid rgba(255,255,255,0.3);
+  padding-bottom: 15px;
+  display: inline-block;
+}
+
+/* 主标题 */
+.main-title {
+  position: absolute;
+  top: 350px;
+  left: 80px;
+  right: 80px;
+  text-align: center;
+  opacity: 0;
+}
+.main-title h1 {
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #ffffff, #90caf9, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.main-title .subtitle {
+  font-size: 32px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 8px;
+}
+
+/* 产品展示区 */
+.product-section {
+  position: absolute;
+  top: 750px;
+  left: 60px;
+  right: 60px;
+  bottom: 300px;
+}
+
+.product-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 24px;
+  padding: 40px;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(60px);
+}
+.product-card:last-child { margin-bottom: 0; }
+
+.product-name {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+.product-desc {
+  font-size: 28px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+}
+.product-features {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.feature-tag {
+  background: rgba(144,202,249,0.2);
+  border: 1px solid rgba(144,202,249,0.4);
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-size: 22px;
+  color: #90caf9;
+}
+
+/* 底部CTA */
+.cta-area {
+  position: absolute;
+  bottom: 80px;
+  left: 60px;
+  right: 60px;
+  text-align: center;
+  opacity: 0;
+}
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #42a5f5, #1565c0);
+  border-radius: 50px;
+  padding: 30px 80px;
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 4px;
+  box-shadow: 0 10px 40px rgba(66,165,245,0.4);
+}
+.cta-contact {
+  margin-top: 30px;
+  font-size: 24px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* 动态粒子效果 */
+.particles {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+}
+
+/* 字幕区域 */
+.subtitle-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+.subtitle-bar .subtitle-text {
+  font-size: 28px;
+  color: #ffffff;
+  padding: 0 40px;
+}
+</style>
+</head>
+<body>
+
+<div id="canvas">
+  <!-- 装饰 -->
+  <div class="top-decoration"></div>
+  <div class="corner-accent top-right"></div>
+  <div class="corner-accent bottom-left"></div>
+
+  <!-- 粒子 -->
+  <div class="particles" id="particles"></div>
+
+  <!-- 品牌 -->
+  <div class="brand-area" id="brand">
+    <span class="brand-logo">鑫源光电 · 手机配件批发</span>
+  </div>
+
+  <!-- 主标题 -->
+  <div class="main-title" id="mainTitle">
+    <h1>新品上市</h1>
+    <div class="subtitle">品质配件 · 值得信赖</div>
+  </div>
+
+  <!-- 产品展示 -->
+  <div class="product-section" id="productSection">
+    <div class="product-card" id="product1">
+      <div class="product-name">iPhone 16 Pro 系列配件</div>
+      <div class="product-desc">原装品质 · 工厂直供 · 全国批发</div>
+      <div class="product-features">
+        <span class="feature-tag">防摔保护</span>
+        <span class="feature-tag">快充兼容</span>
+        <span class="feature-tag">高清透亮</span>
+      </div>
+    </div>
+    <div class="product-card" id="product2">
+      <div class="product-name">AirPods Pro 配件套装</div>
+      <div class="product-desc">降噪升级 · 续航持久 · 售后无忧</div>
+      <div class="product-features">
+        <span class="feature-tag">主动降噪</span>
+        <span class="feature-tag">空间音频</span>
+        <span class="feature-tag">防水防尘</span>
+      </div>
+    </div>
+    <div class="product-card" id="product3">
+      <div class="product-name">快充数据线系列</div>
+      <div class="product-desc">3A快充 · 编织线材 · 弯头设计</div>
+      <div class="product-features">
+        <span class="feature-tag">3A快充</span>
+        <span class="feature-tag">编织耐用</span>
+        <span class="feature-tag">Type-C/Lightning</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-area" id="ctaArea">
+    <div class="cta-button">扫码咨询 · 批发优惠</div>
+    <div class="cta-contact">西安东35号 · 一条龙手机配件鑫源光电</div>
+  </div>
+
+  <!-- 字幕条 -->
+  <div class="subtitle-bar" id="subtitleBar">
+    <span class="subtitle-text" id="subtitleText">品质配件 工厂直供</span>
+  </div>
+</div>
+
+<script>
+// 生成粒子
+const particlesEl = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = Math.random() * 100 + '%';
+  p.style.top = Math.random() * 100 + '%';
+  particlesEl.appendChild(p);
+}
+
+// 时间轴动画
+const tl = gsap.timeline({
+  onComplete: () => {
+    // 动画结束后保持最后一帧
+    gsap.set('#canvas', { opacity: 1 });
+  }
+});
+
+// 0-2s: 品牌标识淡入
+tl.to('#brand', {
+  opacity: 1,
+  duration: 1,
+  ease: 'power2.out'
+})
+.from('#brand', {
+  y: -30,
+  duration: 1,
+  ease: 'power2.out'
+}, 0)
+
+// 2-4s: 主标题
+.to('#mainTitle', {
+  opacity: 1,
+  duration: 0.8,
+  ease: 'power2.out'
+}, 2)
+.from('#mainTitle h1', {
+  scale: 0.8,
+  opacity: 0,
+  duration: 0.8,
+  ease: 'back.out(1.7)'
+}, 2.2)
+
+// 4-6s: 产品卡片逐个出现
+.to('#product1', {
+  opacity: 1,
+  y: 0,
+  duration: 0.8,
+  ease: 'power2.out'
+}, 4)
+.to('#product2', {
+  opacity: 1,
+  y: 0,
+  duration: 0.8,
+  ease: 'power2.out'
+}, 5.5)
+.to('#product3', {
+  opacity: 1,
+  y: 0,
+  duration: 0.8,
+  ease: 'power2.out'
+}, 7)
+
+// 字幕条变化
+.to('#subtitleBar', {
+  opacity: 1,
+  duration: 0.5
+}, 4)
+.call(() => {
+  // 字幕循环变化
+  const subtitles = [
+    '品质配件 工厂直供',
+    '全国批发 一件代发',
+    '西安东35号 鑫源光电',
+    'iPhone配件 专注品质'
+  ];
+  let idx = 0;
+  const subEl = document.getElementById('subtitleText');
+  setInterval(() => {
+    idx = (idx + 1) % subtitles.length;
+    gsap.to(subEl, {
+      opacity: 0,
+      y: -20,
+      duration: 0.3,
+      onComplete: () => {
+        subEl.textContent = subtitles[idx];
+        gsap.fromTo(subEl,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.3 }
+        );
+      }
+    });
+  }, 2500);
+}, [], 4)
+
+// 粒子浮动
+.to('.particle', {
+  y: () => gsap.utils.random(-200, 200),
+  x: () => gsap.utils.random(-100, 100),
+  opacity: 0,
+  duration: () => gsap.utils.random(2, 5),
+  stagger: {
+    each: 0.1,
+    repeat: -1,
+    yoyo: true
+  },
+  ease: 'sine.inOut'
+}, 0)
+
+// CTA
+.to('#ctaArea', {
+  opacity: 1,
+  duration: 0.8,
+  ease: 'power2.out'
+}, 9)
+.from('#ctaArea', {
+  scale: 0.9,
+  duration: 0.8,
+  ease: 'power2.out'
+}, 9)
+
+// 卡片悬浮呼吸效果
+.to('#product1, #product2, #product3', {
+  y: -5,
+  duration: 1.5,
+  repeat: -1,
+  yoyo: true,
+  ease: 'sine.inOut',
+  stagger: 0.3
+}, 10);
+
+// 总时长约15秒，适合短视频
+</script>
+
+</body>
+</html>

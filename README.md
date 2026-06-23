@@ -87,6 +87,9 @@ Phase 9: 最佳实践 (Bonus)
 
 Phase 10: 对比分析 (Bonus)
     └── 技能对比分析 → 主流方案横向对比
+
+Phase 11: 行业应用 (Bonus)
+    └── 手机配件店AI视频工具 → PDF报价单→短视频自动生成
 ```
 
 ## 🏗️ 项目结构
@@ -134,6 +137,13 @@ ai-agent-skills-zh/
 │   └── 进阶玩法.md
 ├── 10-对比分析/                   # Phase 10: 对比分析
 │   └── 技能对比分析.md
+├── 11-行业应用/                   # Phase 11: 行业应用
+│   └── 手机配件店AI视频工具/
+│       ├── README.md              ← 完整文档
+│       ├── SKILL.md               ← Hermes技能
+│       ├── templates/             ← 2种视频模板
+│       ├── scripts/               ← PDF解析+视频生成
+│       └── examples/              ← 示例数据
 └── templates/                     # 可直接复用的模板
     ├── prd-template.md
     ├── okr-template.md
@@ -172,6 +182,7 @@ ai-agent-skills-zh/
 | 实战案例 | 1个 | 08 |
 | 最佳实践 | 3个 | 09 |
 | 对比分析 | 1个 | 10 |
+| 行业应用 | 1个 | 11 |
 ## 🤝 开源许可
 
 本项目基于 **MIT License** 开源。你可以：

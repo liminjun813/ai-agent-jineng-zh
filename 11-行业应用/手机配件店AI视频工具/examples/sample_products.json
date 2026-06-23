@@ -1,0 +1,32 @@
+{
+  "source": "示例数据",
+  "product_count": 5,
+  "products": [
+    {
+      "name": "iPhone 16 Pro 防摔保护壳",
+      "desc": "军工级防摔 · 超薄手感 · 12色可选",
+      "features": ["防摔", "超薄", "多色"]
+    },
+    {
+      "name": "iPhone 16 Pro 钢化膜",
+      "desc": "9H硬度 · 高清透亮 · 防指纹涂层",
+      "features": ["9H硬度", "高清", "防指纹"]
+    },
+    {
+      "name": "MagSafe磁吸充电宝",
+      "desc": "5000mAh · 15W无线充 · 轻薄便携",
+      "features": ["5000mAh", "15W快充", "磁吸"]
+    },
+    {
+      "name": "AirPods Pro 2 保护套",
+      "desc": "液态硅胶 · 挂绳设计 · 全包防摔",
+      "features": ["液态硅胶", "挂绳", "全包"]
+    },
+    {
+      "name": "三合一快充数据线",
+      "desc": "Type-C+Lightning+Micro-USB · 3A快充 · 编织线材",
+      "features": ["三合一", "3A快充", "编织"]
+    }
+  ],
+  "note": "价格信息已自动移除"
+}

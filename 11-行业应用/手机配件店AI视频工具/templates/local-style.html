@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手机配件店AI视频 — 同城风格模板</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0a0a0a;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+#canvas {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ff6b35 0%, #f7931e 30%, #ffc107 60%, #fff8e1 100%);
+  color: #1a1a1a;
+}
+
+/* 顶部标签 */
+.top-badge {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+}
+.badge-tag {
+  background: rgba(255,255,255,0.9);
+  border-radius: 30px;
+  padding: 12px 30px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff6b35;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.badge-location {
+  background: rgba(0,0,0,0.1);
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-size: 20px;
+  color: #333;
+}
+
+/* 主标题区 */
+.hero-section {
+  position: absolute;
+  top: 160px;
+  left: 60px;
+  right: 60px;
+  text-align: center;
+  opacity: 0;
+}
+.hero-section .emoji-icon {
+  font-size: 120px;
+  margin-bottom: 20px;
+  display: block;
+}
+.hero-section h1 {
+  font-size: 80px;
+  font-weight: 900;
+  color: #1a1a1a;
+  line-height: 1.2;
+  text-shadow: 2px 2px 0 rgba(255,255,255,0.5);
+}
+.hero-section .highlight {
+  color: #d32f2f;
+  position: relative;
+}
+
+/* 产品展示卡片 */
+.showcase {
+  position: absolute;
+  top: 550px;
+  left: 40px;
+  right: 40px;
+  bottom: 350px;
+}
+
+.showcase-item {
+  background: white;
+  border-radius: 24px;
+  padding: 35px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateX(-100px);
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+.showcase-item:last-child { margin-bottom: 0; }
+
+.item-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  flex-shrink: 0;
+}
+.item-icon.blue { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+.item-icon.green { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+.item-icon.purple { background: linear-gradient(135deg, #f3e5f5, #e1bee7); }
+
+.item-info { flex: 1; }
+.item-info .item-name {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+.item-info .item-desc {
+  font-size: 24px;
+  color: #666;
+  line-height: 1.4;
+}
+.item-info .item-tags {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.item-tag {
+  background: #ff6b35;
+  color: white;
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.item-tag.secondary { background: #ffc107; color: #333; }
+
+/* 底部CTA */
+.bottom-cta {
+  position: absolute;
+  bottom: 60px;
+  left: 40px;
+  right: 40px;
+  text-align: center;
+  opacity: 0;
+}
+.cta-main {
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  border-radius: 20px;
+  padding: 35px;
+  font-size: 40px;
+  font-weight: 800;
+  color: white;
+  box-shadow: 0 10px 30px rgba(255,107,53,0.4);
+  margin-bottom: 20px;
+}
+.cta-detail {
+  font-size: 24px;
+  color: rgba(0,0,0,0.6);
+}
+
+/* 动态字幕 */
+.dyn-subtitle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.dyn-subtitle .word {
+  font-size: 40px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 8px;
+  opacity: 0;
+}
+.dyn-subtitle .word:nth-child(odd) {
+  /* 奇数字大 */
+}
+.dyn-subtitle .word:nth-child(even) {
+  /* 偶数字小 */
+  font-size: 32px;
+}
+
+/* 闪烁星星装饰 */
+.stars {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.star {
+  position: absolute;
+  font-size: 30px;
+  opacity: 0;
+}
+
+/* 价格标签（隐藏价格，只显示"超值"） */
+.value-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #d32f2f;
+  color: white;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  box-shadow: 0 4px 15px rgba(211,47,47,0.4);
+  opacity: 0;
+}
+</style>
+</head>
+<body>
+
+<div id="canvas">
+  <!-- 星星装饰 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 超值标签 -->
+  <div class="value-badge" id="valueBadge">超值</div>
+
+  <!-- 顶部标签 -->
+  <div class="top-badge" id="topBadge">
+    <span class="badge-tag">🔥 新品推荐</span>
+    <span class="badge-location">📍 西安·东35号</span>
+  </div>
+
+  <!-- 主标题 -->
+  <div class="hero-section" id="heroSection">
+    <span class="emoji-icon">📱</span>
+    <h1>手机配件<br><span class="highlight">源头工厂</span></h1>
+  </div>
+
+  <!-- 产品展示 -->
+  <div class="showcase" id="showcase">
+    <div class="showcase-item" id="showcase1">
+      <div class="item-icon blue">🔌</div>
+      <div class="item-info">
+        <div class="item-name">快充系列</div>
+        <div class="item-desc">3A快充 · 编织线材 · 弯头设计</div>
+        <div class="item-tags">
+          <span class="item-tag">3A快充</span>
+          <span class="item-tag secondary">编织耐用</span>
+        </div>
+      </div>
+    </div>
+    <div class="showcase-item" id="showcase2">
+      <div class="item-icon green">🛡️</div>
+      <div class="item-info">
+        <div class="item-name">保护壳系列</div>
+        <div class="item-desc">防摔抗撞 · 超薄手感 · 多色可选</div>
+        <div class="item-tags">
+          <span class="item-tag">防摔</span>
+          <span class="item-tag secondary">超薄</span>
+        </div>
+      </div>
+    </div>
+    <div class="showcase-item" id="showcase3">
+      <div class="item-icon purple">🎧</div>
+      <div class="item-info">
+        <div class="item-name">耳机配件</div>
+        <div class="item-desc">降噪升级 · 续航持久 · 舒适佩戴</div>
+        <div class="item-tags">
+          <span class="item-tag">降噪</span>
+          <span class="item-tag secondary">长续航</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部CTA -->
+  <div class="bottom-cta" id="bottomCta">
+    <div class="cta-main">📞 批发热线 扫码咨询</div>
+    <div class="cta-detail">西安东35号 · 一条龙手机配件鑫源光电</div>
+  </div>
+
+  <!-- 动态字幕 -->
+  <div class="dyn-subtitle" id="dynSubtitle">
+    <span class="word">品</span>
+    <span class="word">质</span>
+    <span class="word">配</span>
+    <span class="word">件</span>
+    <span class="word">源</span>
+    <span class="word">头</span>
+    <span class="word">工</span>
+    <span class="word">厂</span>
+  </div>
+</div>
+
+<script>
+// 生成星星
+const starsEl = document.getElementById('stars');
+const emojis = ['✨', '⭐', '💫', '🌟'];
+for (let i = 0; i < 15; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  s.style.left = Math.random() * 100 + '%';
+  s.style.top = Math.random() * 100 + '%';
+  starsEl.appendChild(s);
+}
+
+const tl = gsap.timeline();
+
+// 0-1.5s: 超值标签 + 顶部标签
+tl.to('#valueBadge', {
+  opacity: 1,
+  scale: 1.1,
+  rotation: 15,
+  duration: 0.5,
+  ease: 'back.out(2)'
+}, 0)
+.to('#topBadge', {
+  opacity: 1,
+  duration: 0.8,
+  ease: 'power2.out'
+}, 0.3)
+
+// 1.5-3s: 主标题
+.to('#heroSection', {
+  opacity: 1,
+  duration: 0.8,
+  ease: 'power2.out'
+}, 1.5)
+.from('#heroSection h1', {
+  y: 50,
+  opacity: 0,
+  duration: 0.8,
+  ease: 'power3.out'
+}, 1.8)
+.to('#heroSection .emoji-icon', {
+  scale: 1.2,
+  rotation: 10,
+  duration: 0.5,
+  yoyo: true,
+  repeat: 1,
+  ease: 'sine.inOut'
+}, 2)
+
+// 3-5s: 展示卡片逐个滑入
+.to('#showcase1', {
+  opacity: 1,
+  x: 0,
+  duration: 0.8,
+  ease: 'power3.out'
+}, 3)
+.to('#showcase2', {
+  opacity: 1,
+  x: 0,
+  duration: 0.8,
+  ease: 'power3.out'
+}, 4.2)
+.to('#showcase3', {
+  opacity: 1,
+  x: 0,
+  duration: 0.8,
+  ease: 'power3.out'
+}, 5.4)
+
+// 动态字幕跳动
+.to('#dynSubtitle .word', {
+  opacity: 1,
+  y: 0,
+  duration: 0.3,
+  stagger: 0.1,
+  ease: 'back.out(2)'
+}, 2.5)
+
+// 卡片悬浮
+.to('#showcase1, #showcase2, #showcase3', {
+  y: -8,
+  duration: 1.2,
+  repeat: -1,
+  yoyo: true,
+  ease: 'sine.inOut',
+  stagger: 0.2
+}, 6)
+
+// 星星闪烁
+.to('.star', {
+  opacity: () => gsap.utils.random(0.3, 0.8),
+  scale: () => gsap.utils.random(0.8, 1.3),
+  rotation: () => gsap.utils.random(-15, 15),
+  duration: () => gsap.utils.random(0.5, 1.5),
+  repeat: -1,
+  yoyo: true,
+  ease: 'sine.inOut',
+  stagger: {
+    each: 0.15,
+    from: 'random'
+  }
+}, 0)
+
+// 底部CTA
+.to('#bottomCta', {
+  opacity: 1,
+  scale: 1,
+  duration: 0.8,
+  ease: 'back.out(1.5)'
+}, 7)
+
+// 标签旋转
+.to('#valueBadge', {
+  rotation: -10,
+  duration: 0.5,
+  yoyo: true,
+  repeat: -1,
+  ease: 'sine.inOut'
+}, 3);
+
+// 字幕循环（跳字+变色效果）
+const subtitleWords = [
+  '品质配件 源头工厂',
+  '全国批发 一件代发',
+  '西安东35号 鑫源光电',
+  'iPhone配件 专注品质',
+  '防摔保护 快充兼容',
+  ' wholesale 优质低价'
+];
+let subIdx = 0;
+const words = document.querySelectorAll('#dynSubtitle .word');
+setInterval(() => {
+  subIdx = (subIdx + 1) % subtitleWords.length;
+  const text = subtitleWords[subIdx];
+  // 清除旧字
+  words.forEach(w => w.remove());
+  // 创建新字
+  const container = document.getElementById('dynSubtitle');
+  [...text].forEach((char, i) => {
+    const span = document.createElement('span');
+    span.className = 'word';
+    span.textContent = char;
+    span.style.opacity = '0';
+    span.style.transform = 'translateY(20px)';
+    container.appendChild(span);
+    // 奇字大偶字小
+    if ((i + 1) % 2 === 0) {
+      span.style.fontSize = '32px';
+    } else {
+      span.style.fontSize = '40px';
+    }
+    // 颜色循环
+    const colors = ['#1a1a1a', '#d32f2f', '#ff6b35', '#1565c0', '#2e7d32'];
+    span.style.color = colors[i % colors.length];
+    // 动画进入
+    gsap.to(span, {
+      opacity: 1,
+      y: 0,
+      duration: 0.3,
+      delay: i * 0.05,
+      ease: 'back.out(2)'
+    });
+  });
+}, 2500);
+</script>
+
+</body>
+</html>
