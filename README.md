@@ -73,6 +73,20 @@ Phase 5: 开发与工程 (Week 8-12)
 Phase 6: 收尾与发布 (Week 13)
     ├── 分支收尾 → finishing-a-development-branch
     └── 技能编写 → writing-skills
+
+Phase 7: 好工具推荐 (Bonus)
+    └── AgentMemory 持久记忆 → agentmemory
+
+Phase 8: 实战案例 (Bonus)
+    └── 从0到1创建电商公司 → real-world-ecommerce
+
+Phase 9: 最佳实践 (Bonus)
+    ├── 技能选择决策树 → 什么时候用什么技能
+    ├── 最佳实践与避坑指南 → 10大高频踩坑
+    └── 进阶玩法 → 技能组合拳、并行加速
+
+Phase 10: 对比分析 (Bonus)
+    └── 技能对比分析 → 主流方案横向对比
 ```
 
 ## 🏗️ 项目结构
@@ -110,6 +124,16 @@ ai-agent-skills-zh/
 ├── 06-收尾与发布/                 # Phase 6: 收尾与发布
 │   ├── finishing-branch-demo.md
 │   └── writing-skills-demo.md
+├── 07-好工具推荐/                 # Phase 7: 好工具推荐
+│   └── agentmemory-demo.md
+├── 08-实战案例/                   # Phase 8: 实战案例
+│   └── real-world-ecommerce.md
+├── 09-最佳实践/                   # Phase 9: 最佳实践
+│   ├── 技能选择决策树.md
+│   ├── 最佳实践与避坑指南.md
+│   └── 进阶玩法.md
+├── 10-对比分析/                   # Phase 10: 对比分析
+│   └── 技能对比分析.md
 └── templates/                     # 可直接复用的模板
     ├── prd-template.md
     ├── okr-template.md
@@ -143,8 +167,11 @@ ai-agent-skills-zh/
 | 类别 | 技能数 | 阶段 |
 |------|--------|------|
 | 产品管理 (PM-Skills) | 9个 | 02, 03, 04 |
-| 软件工程 (Superpowers) | 14个 | 01, 05, 06 |
-
+| 软件工程（Superpowers） | 14个 | 01, 05, 06 |
+| 好工具推荐 | 1个 | 07 |
+| 实战案例 | 1个 | 08 |
+| 最佳实践 | 3个 | 09 |
+| 对比分析 | 1个 | 10 |
 ## 🤝 开源许可
 
 本项目基于 **MIT License** 开源。你可以：

@@ -71,3 +71,6 @@
 21. `pm-data-analytics` — 数据分析时
 22. `pm-toolkit` — 法律文档时
 23. `using-superpowers` — 新技能导入时
+
+### Bonus（⭐⭐⭐⭐⭐ 强烈推荐）
+24. `agentmemory` — 跨会话记忆，项目上下文自动恢复
